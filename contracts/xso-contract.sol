@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.29;
+pragma solidity ^0.8.20;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
@@ -69,7 +69,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
     error InvalidAmount();
     error ExceedsMaxTransaction();
     error ExceedsMaxWallet();
-    error AddressBlacklisted();
+    error BlacklistedAddress();  // Changed name to avoid conflict
     error LimitsNotEnabled();
 
     // =============================================================
@@ -217,7 +217,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
     {
         // Check blacklist status
         if (blacklisted[from] || blacklisted[to]) {
-            revert AddressBlacklisted();
+            revert BlacklistedAddress();
         }
 
         // Apply limits only if enabled and not a mint/burn operation

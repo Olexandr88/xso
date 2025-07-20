@@ -1,7 +1,23 @@
 {
-  "name": "hardhat-project",
+  "name": "skycoin-xso",
+  "version": "1.0.0",
+  "description": "SkyCoin (XSO) - Enhanced ERC20 token for BSC",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network bscTestnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network bscMainnet",
+    "verify": "hardhat verify --network bscMainnet",
+    "clean": "hardhat clean"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.0",
-    "hardhat": "^2.26.0"
+    "hardhat": "^2.26.0",
+    "dotenv": "^16.0.0",
+    "solidity-coverage": "^0.8.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
   }
 }
