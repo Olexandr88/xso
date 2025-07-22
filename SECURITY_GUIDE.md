@@ -33,7 +33,7 @@
 ### 3. Environment Configuration
 ```bash
 # Copy and configure environment
-cp .env.example .env
+cp .env .env
 # Edit .env with your actual values
 ```
 

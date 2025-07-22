@@ -77,19 +77,19 @@ async function main() {
     console.log("\n🔄 Transferring ownership to Ledger...");
 
     try {
-      // Transfer ownership
+      // First, exempt the new owner from limits BEFORE transferring ownership
+      console.log("🎫 Adding Ledger address to exemptions...");
+      const exemptTx = await skyCoin.setExemptFromLimits(config.FINAL_OWNER, true);
+      await exemptTx.wait();
+      console.log("✅ Ledger address exempted from limits");
+
+      // Then transfer ownership
       const transferTx = await skyCoin.transferOwnership(config.FINAL_OWNER);
       await transferTx.wait();
 
       console.log("✅ Ownership transferred successfully!");
       console.log("🔗 Transfer transaction:", transferTx.hash);
       console.log("👑 New owner:", await skyCoin.owner());
-
-      // Exempt the new owner from limits
-      console.log("\n🎫 Adding Ledger address to exemptions...");
-      const exemptTx = await skyCoin.setExemptFromLimits(config.FINAL_OWNER, true);
-      await exemptTx.wait();
-      console.log("✅ Ledger address exempted from limits");
 
     } catch (error) {
       console.log("❌ Ownership transfer failed:", error.message);
