@@ -89,7 +89,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
             revert ZeroAddress();
         }
 
-        // Set initial anti-whale limits (5% of total supply)
+        // Set initial anti-whale limits (10% of total supply)
         maxTransactionAmount = INITIAL_SUPPLY * 10 / 100; // 10% of total supply
         maxWalletBalance = INITIAL_SUPPLY * 100 / 100;    // 100% of total supply
 
