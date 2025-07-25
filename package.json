@@ -1,25 +1,66 @@
 {
   "name": "skycoin-xso",
   "version": "1.0.0",
-  "description": "SkyCoin (XSO) - Enhanced ERC20 token for BSC",
+  "description": "SkyCoin (XSO) - Enhanced ERC20 token for BSC with advanced security features",
+  "main": "hardhat.config.js",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
     "test:coverage": "hardhat coverage",
+    "test:gas": "REPORT_GAS=true hardhat test",
     "deploy:testnet": "hardhat run scripts/deploy.js --network bscTestnet",
     "deploy:mainnet": "hardhat run scripts/deploy.js --network bscMainnet",
     "deploy:secure": "hardhat run scripts/deploy-with-transfer.js --network bscMainnet",
     "deploy:secure:testnet": "hardhat run scripts/deploy-with-transfer.js --network bscTestnet",
     "verify": "hardhat verify --network bscMainnet",
-    "clean": "hardhat clean"
+    "verify:testnet": "hardhat verify --network bscTestnet",
+    "clean": "hardhat clean",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix",
+    "format": "prettier --write 'contracts/**/*.sol' 'test/**/*.js' 'scripts/**/*.js'",
+    "audit:prepare": "npm run compile && npm run test:coverage && npm run lint",
+    "check": "npm run compile && npm run test && npm run lint",
+    "size": "hardhat size-contracts",
+    "flatten": "hardhat flatten contracts/xso-contract.sol > flattened-contract.sol"
   },
+  "keywords": [
+    "ethereum",
+    "binance-smart-chain",
+    "bsc",
+    "erc20",
+    "token",
+    "cryptocurrency",
+    "defi",
+    "smart-contract",
+    "solidity",
+    "hardhat"
+  ],
+  "author": "SkyCoin Development Team",
+  "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.0",
-    "hardhat": "^2.26.0",
     "dotenv": "^16.0.0",
+    "hardhat": "^2.26.0",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^1.0.10",
+    "prettier": "^3.6.2",
+    "prettier-plugin-solidity": "^1.4.3",
+    "solhint": "^4.5.4",
     "solidity-coverage": "^0.8.0"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/xso.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/xso/issues"
+  },
+  "homepage": "https://github.com/your-org/xso#readme"
 }
