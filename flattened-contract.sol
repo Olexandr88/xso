@@ -1004,7 +1004,7 @@ abstract contract ReentrancyGuard {
 
 // Original license: SPDX_License_Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.20;
+pragma solidity 0.8.30;
 
 
 
@@ -1052,6 +1052,12 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
     /// @dev Whether anti-whale protection is enabled
     bool public limitsEnabled = true;
 
+    /// @dev DEX pair address for proper limit handling
+    address public pairAddress;
+
+    /// @dev Whether pair address has been set (can only be set once)
+    bool private pairSet;
+
     // =============================================================
     //                           EVENTS
     // =============================================================
@@ -1062,6 +1068,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
     event LimitsUpdated(uint256 maxTransaction, uint256 maxWallet);
     event LimitsToggled(bool enabled);
     event ExemptionUpdated(address indexed account, bool indexed exempt);
+    event PairAddressSet(address indexed pairAddress);
 
     // =============================================================
     //                           ERRORS
@@ -1171,6 +1178,18 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
         emit ExemptionUpdated(account, exempt);
     }
 
+    /**
+     * @dev Set the DEX pair address (can only be set once)
+     * @param _pair Address of the DEX liquidity pair
+     */
+    function setPairAddress(address _pair) external onlyOwner {
+        require(!pairSet, "Pair address already set");
+        require(_pair != address(0), "Invalid pair address");
+        pairAddress = _pair;
+        pairSet = true;
+        emit PairAddressSet(_pair);
+    }
+
     // =============================================================
     //                      VIEW FUNCTIONS
     // =============================================================
@@ -1247,8 +1266,9 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
             revert ExceedsMaxTransaction();
         }
 
-        // Check wallet limit for recipient
-        if (balanceOf(to) + value > maxWalletBalance) {
+        // Check wallet limit for recipient, but skip for pair address
+        // This allows DEX trading while maintaining anti-whale protection for users
+        if (to != pairAddress && balanceOf(to) + value > maxWalletBalance) {
             revert ExceedsMaxWallet();
         }
     }
@@ -1259,7 +1279,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
 
     /**
      * @dev Emergency function to remove limits (use with caution)
-     * @notice This permanently disables all limits and cannot be undone
+     * @notice This permanently disables all limits and this action is reversible
      */
     function emergencyRemoveLimits() external onlyOwner {
         limitsEnabled = false;

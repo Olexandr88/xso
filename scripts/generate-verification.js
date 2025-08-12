@@ -24,7 +24,7 @@ async function generateStandardJsonInput() {
   console.log("1. Go to: https://bscscan.com/verifyContract");
   console.log("2. Enter contract address: 0xe9E5b832ecd37dD0015d42A003CF5632105a9539");
   console.log("3. Select: 'Solidity (Standard-Json-Input)'");
-  console.log("4. Compiler version: v0.8.20+commit.a1b79de6");
+  console.log("4. Compiler version: v0.8.30");
   console.log("5. Upload the file: standard-input.json");
   console.log("6. Contract name: contracts/xso-contract.sol:SkyCoin");
   console.log("7. Constructor arguments: 0x0000000000000000000000004549425bf79a701e46e1d9345ac68b6564cfeb750000000000000000000000004549425bf79a701e46e1d9345ac68b6564cfeb75");

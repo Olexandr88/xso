@@ -179,7 +179,7 @@ Permanently disable all limits (emergency use, owner only).
 ## 🔍 Contract Verification
 
 The contract has been verified on BSCScan with the following parameters:
-- **Compiler Version**: 0.8.20
+- **Compiler Version**: 0.8.30
 - **Optimization**: Enabled (200 runs)
 - **Constructor Arguments**: Encoded ABI parameters
 

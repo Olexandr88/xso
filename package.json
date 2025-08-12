@@ -57,10 +57,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/xso.git"
+    "url": "git+https://github.com/skyoption/xso.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/xso/issues"
+    "url": "https://github.com/skyoption/xso/issues"
   },
-  "homepage": "https://github.com/your-org/xso#readme"
+  "homepage": "https://github.com/skyoption/xso#readme"
 }

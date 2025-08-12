@@ -19,7 +19,7 @@ Choose these exact settings to match your deployment:
 - ✅ Select "Solidity (Single file)"
 
 **Compiler Version:**
-- ✅ Select "v0.8.20+commit.a1b79de6" (must match exactly)
+- ✅ Select "v0.8.30+commit.a1b79de6" (must match exactly)
 
 **Open Source License Type:**
 - ✅ Select "MIT License (MIT)"
@@ -57,7 +57,7 @@ You MUST enter the constructor arguments in ABI-encoded format:
 ## ⚠️ Common Issues & Solutions
 
 ### If Verification Fails:
-1. **Double-check compiler version** - Must be exactly v0.8.20
+1. **Double-check compiler version** - Must be exactly v0.8.30
 2. **Verify constructor arguments** - Must be the exact hex string above
 3. **Check optimization settings** - Enable with 200 runs
 4. **Ensure complete flattened code** - Copy entire file content
