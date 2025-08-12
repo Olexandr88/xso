@@ -277,7 +277,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
 
     /**
      * @dev Emergency function to remove limits (use with caution)
-     * @notice This permanently disables all limits and cannot be undone
+     * @notice This permanently disables all limits and this action is reversible
      */
     function emergencyRemoveLimits() external onlyOwner {
         limitsEnabled = false;
