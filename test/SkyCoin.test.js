@@ -246,7 +246,38 @@ describe("SkyCoin", function () {
 
     it("Should return correct exemption status", async function () {
       expect(await skyCoin.isExemptFromLimits(addr1.address)).to.be.false;
-      expect(await skyCoin.isExemptFromLimits(owner.address)).to.be.true;
+
+      await skyCoin.setExemptFromLimits(addr1.address, true);
+      expect(await skyCoin.isExemptFromLimits(addr1.address)).to.be.true;
+    });
+  });
+
+  describe("DEX Pair Address Management", function () {
+    it("Should set pair address successfully", async function () {
+      const pairAddress = addr1.address;
+
+      await expect(skyCoin.setPairAddress(pairAddress))
+        .to.emit(skyCoin, "PairAddressSet")
+        .withArgs(pairAddress);
+
+      expect(await skyCoin.pairAddress()).to.equal(pairAddress);
+    });
+
+    it("Should revert when setting zero address as pair", async function () {
+      await expect(skyCoin.setPairAddress(ethers.ZeroAddress))
+        .to.be.revertedWith("Invalid pair address");
+    });
+
+    it("Should revert when trying to set pair address twice", async function () {
+      await skyCoin.setPairAddress(addr1.address);
+
+      await expect(skyCoin.setPairAddress(addr2.address))
+        .to.be.revertedWith("Pair address already set");
+    });
+
+    it("Should only allow owner to set pair address", async function () {
+      await expect(skyCoin.connect(addr1).setPairAddress(addr2.address))
+        .to.be.revertedWithCustomError(skyCoin, "OwnableUnauthorizedAccount");
     });
   });
 });
