@@ -28,9 +28,6 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
     /// @dev Maximum possible supply (1 trillion tokens)
     uint256 public constant MAX_SUPPLY = 1_000_000_000_000 * 10**18;
 
-    /// @dev Initial supply percentage (100% of max supply)
-    uint256 public constant INITIAL_SUPPLY = MAX_SUPPLY;
-
     // =============================================================
     //                           STORAGE
     // =============================================================
@@ -76,8 +73,7 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
     error InvalidAmount();
     error ExceedsMaxTransaction();
     error ExceedsMaxWallet();
-    error BlacklistedAddress();  // Changed name to avoid conflict
-    error LimitsNotEnabled();
+    error BlacklistedAddress();
 
     // =============================================================
     //                         CONSTRUCTOR
@@ -97,16 +93,15 @@ contract SkyCoin is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ReentrancyGuar
         }
 
         // Set initial anti-whale limits (10% of total supply)
-        maxTransactionAmount = INITIAL_SUPPLY * 10 / 100; // 10% of total supply
-        maxWalletBalance = INITIAL_SUPPLY * 100 / 100;    // 100% of total supply
+        maxTransactionAmount = MAX_SUPPLY * 10 / 100; // 10% of total supply
+        maxWalletBalance = MAX_SUPPLY;                // 100% of total supply
 
-        // Exempt owner, recipient, and contract from limits
+        // Exempt owner and recipient from limits
         exemptFromLimits[initialOwner] = true;
         exemptFromLimits[recipient] = true;
-        exemptFromLimits[address(this)] = true;
 
         // Mint initial supply
-        _mint(recipient, INITIAL_SUPPLY);
+        _mint(recipient, MAX_SUPPLY);
     }
 
     // =============================================================
