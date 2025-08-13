@@ -6,14 +6,9 @@
 ```
 SkyCoin
 ├── ERC20 (OpenZeppelin v5.0.0)
-│   ├── IERC20
-│   ├── IERC20Metadata
-│   └── Context
 ├── ERC20Burnable (OpenZeppelin v5.0.0)
 ├── ERC20Pausable (OpenZeppelin v5.0.0)
-│   └── Pausable
-├── Ownable (OpenZeppelin v5.0.0)
-└── ReentrancyGuard (OpenZeppelin v5.0.0)
+└── Ownable (OpenZeppelin v5.0.0)
 ```
 
 ### State Variables
@@ -72,9 +67,9 @@ SkyCoin
 ### Security Mechanisms
 
 #### 1. Reentrancy Protection
-- All external functions protected with `nonReentrant` modifier
-- State changes occur before external calls
-- Follows CEI (Checks-Effects-Interactions) pattern
+- **Status**: No external calls present in contract
+- **Implementation**: Contract design eliminates reentrancy attack vectors
+- **Details**: All functions operate on internal state only, no external contract interactions
 
 #### 2. Input Validation
 ```solidity

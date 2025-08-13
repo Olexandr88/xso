@@ -40,8 +40,7 @@ SkyCoin Contract
 ├── ERC20 (OpenZeppelin)
 ├── ERC20Burnable (OpenZeppelin)
 ├── ERC20Pausable (OpenZeppelin)
-├── Ownable (OpenZeppelin)
-└── ReentrancyGuard (OpenZeppelin)
+└── Ownable (OpenZeppelin)
 ```
 
 ## 📊 Token Economics
@@ -146,7 +145,7 @@ npm run verify
 - **Blacklist Management**: Compliance and security enforcement
 
 ### Reentrancy Protection
-- All state-changing functions protected with ReentrancyGuard
+- No external calls in contract functions, eliminating reentrancy risks
 - Follows checks-effects-interactions pattern
 
 ## 📚 API Reference
